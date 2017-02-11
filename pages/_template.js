@@ -31,8 +31,8 @@ const Navbar = styled.div`
 `;
 
 const H1 = styled.h1`
-  fontSize: ${() => scale(1.5).fontSize};
-  lineHeight: ${() => scale(1.5).lineHeight};
+  font-size: ${() => scale(1.5).fontSize};
+  line-height: ${() => scale(1.5).lineHeight};
   margin-top: 0;
   margin-bottom: ${() => rhythm(0.5)};
 `;

@@ -11,11 +11,10 @@ const Container = styled.div`
 `;
 
 const Avatar = styled.img`
-  float: left;
   margin-right: ${() => rhythm(1 / 4)};
   margin-bottom: 0;
-  width: ${() => rhythm(2)};
-  height: ${() => rhythm(2)};
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 `;
 
