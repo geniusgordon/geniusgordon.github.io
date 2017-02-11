@@ -1,9 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Container } from 'react-responsive-grid';
 import { prefixLink } from 'gatsby-helpers';
 import { rhythm, scale } from 'utils/typography';
 import { config } from 'config';
+import styled from 'styled-components';
+import Bio from 'components/Bio';
+
+const Base = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+const Container = styled.div`
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const IndexHeader = styled.div`
+  width: 100%;
+  padding-top: ${() => rhythm(1.5)};
+  background-color: white;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.05);
+  margin-bottom: ${() => rhythm(2)};
+`;
+
+const Navbar = styled.div`
+  background-color: white;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.05);
+  margin-bottom: ${() => rhythm(2)};
+`;
+
+const H1 = styled.h1`
+  fontSize: ${() => scale(1.5).fontSize};
+  lineHeight: ${() => scale(1.5).lineHeight};
+  margin-top: 0;
+  margin-bottom: ${() => rhythm(0.5)};
+`;
+
+const H3 = styled.h3`
+  padding: ${() => rhythm(0.5)};
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+`;
+
+const HeaderLink = styled(Link)`
+  box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+`;
 
 class Template extends React.Component {
   render() {
@@ -11,56 +55,31 @@ class Template extends React.Component {
     let header;
     if (location.pathname === prefixLink('/')) {
       header = (
-        <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to={prefixLink('/')}
-          >
-            {config.blogTitle}
-          </Link>
-        </h1>
+        <IndexHeader>
+          <Container>
+            <H1><HeaderLink>{config.blogTitle}</HeaderLink></H1>
+            <Bio />
+          </Container>
+        </IndexHeader>
       );
     } else {
       header = (
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to={prefixLink('/')}
-          >
-            {config.blogTitle}
-          </Link>
-        </h3>
+        <Navbar>
+          <H3>
+            <HeaderLink to={prefixLink('/')}>
+              {config.blogTitle}
+            </HeaderLink>
+          </H3>
+        </Navbar>
       );
     }
     return (
-      <Container
-        style={{
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
+      <Base>
         {header}
-        {children}
-      </Container>
+        <Container>
+          {children}
+        </Container>
+      </Base>
     );
   }
 }

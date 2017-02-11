@@ -4,6 +4,12 @@ import { rhythm } from 'utils/typography';
 import { prefixLink } from 'gatsby-helpers';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  padding-top: ${() => rhythm(0.5)};
+  padding-bottom: ${() => rhythm(1)};
+  display: flex;
+`;
+
 const Avatar = styled.img`
   float: left;
   margin-right: ${() => rhythm(1 / 4)};
@@ -16,15 +22,17 @@ const Avatar = styled.img`
 class Bio extends React.Component {
   render() {
     return (
-      <p style={{ marginBottom: rhythm(2.5) }} >
+      <Container>
         <Avatar src={config.profilePic} alt={`author ${config.authorName}`} />
-        Written by{' '}
-        <strong>{config.authorName}</strong>
-        {' '}who lives and works in Taiwan building useful things.{' '}
-        <a href="https://twitter.com/geniusgordon">
-          You should follow him on Twitter
-        </a>
-      </p>
+        <p>
+          Written by{' '}
+          <strong>{config.authorName}</strong>
+          {' '}who lives and works in Taiwan building useful things.{' '}
+          <a href="https://twitter.com/geniusgordon">
+            You should follow him on Twitter
+          </a>
+        </p>
+      </Container>
     );
   }
 }

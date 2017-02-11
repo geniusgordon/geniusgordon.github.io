@@ -28,7 +28,6 @@ class BlogIndex extends React.Component {
             { name: 'keywords', content: 'blog, articles' },
           ]}
         />
-        <Bio />
         <ul>
           {visiblePages.map(page => (
             <li
