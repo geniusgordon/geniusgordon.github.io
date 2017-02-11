@@ -3,6 +3,7 @@ import { config } from 'config';
 import { rhythm } from 'utils/typography';
 import { prefixLink } from 'gatsby-helpers';
 import styled from 'styled-components';
+import { Github, Twitter, Facebook, LinkedIn } from 'components/SocialIcon';
 
 const Container = styled.div`
   padding-top: ${() => rhythm(0.5)};
@@ -13,8 +14,8 @@ const Container = styled.div`
 const Avatar = styled.img`
   margin-right: ${() => rhythm(1 / 4)};
   margin-bottom: 0;
-  width: 50px;
-  height: 50px;
+  width: ${() => rhythm(2)};
+  height: ${() => rhythm(2)};
   border-radius: 50%;
 `;
 
@@ -27,9 +28,10 @@ class Bio extends React.Component {
           Written by{' '}
           <strong>{config.authorName}</strong>
           {' '}who lives and works in Taiwan building useful things.{' '}
-          <a href="https://twitter.com/geniusgordon">
-            You should follow him on Twitter
-          </a>
+          <Github />
+          <Twitter />
+          <Facebook />
+          <LinkedIn />
         </p>
       </Container>
     );

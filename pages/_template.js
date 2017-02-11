@@ -31,8 +31,8 @@ const Navbar = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-size: ${() => scale(1.5).fontSize};
-  line-height: ${() => scale(1.5).lineHeight};
+  font-size: ${() => scale(1.2).fontSize};
+  line-height: ${() => scale(1.2).lineHeight};
   margin-top: 0;
   margin-bottom: ${() => rhythm(0.5)};
 `;
@@ -57,7 +57,9 @@ class Template extends React.Component {
       header = (
         <IndexHeader>
           <Container>
-            <H1><HeaderLink>{config.blogTitle}</HeaderLink></H1>
+            <H1>
+              <HeaderLink>{config.blogTitle}</HeaderLink>
+            </H1>
             <Bio />
           </Container>
         </IndexHeader>
