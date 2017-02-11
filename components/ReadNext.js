@@ -1,9 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { prefixLink } from 'gatsby-helpers';
-import { prune, include as includes } from 'underscore.string';
+import { prune, include } from 'underscore.string';
 import find from 'lodash/find';
+import styled from 'styled-components';
 import { rhythm, scale } from 'utils/typography';
+
+const Label = styled.h6`
+  font-size: ${() => scale(-0.5).fontSize};
+  line-height: ${() => scale(-0.5).lineHeight};
+  margin: 0;
+  letter-spacing: -0.25;
+`;
+
+const Title = styled.h3`
+  margin-top: 0;
+  margin-bottom: ${() => rhythm(1 / 4)};
+`;
 
 class ReadNext extends React.Component {
   render() {
@@ -11,34 +24,21 @@ class ReadNext extends React.Component {
     const { readNext } = post;
     let nextPost;
     if (readNext) {
-      nextPost = find(pages, page => includes(page.path, readNext));
+      nextPost = find(pages, page => include(page.path, readNext));
     }
     if (!nextPost) {
       return React.createElement('noscript', null);
     } else {
       nextPost = find(pages, page =>
-        includes(page.path, readNext.slice(1, -1)));
+        include(page.path, readNext.slice(1, -1)));
       // Create pruned version of the body.
       const html = nextPost.data.body;
       const body = prune(html.replace(/<[^>]*>/g, ''), 200);
 
       return (
         <div>
-          <h6
-            style={{
-              ...scale(-0.5),
-              margin: 0,
-              letterSpacing: -0.25,
-            }}
-          >
-            READ THIS NEXT:
-          </h6>
-          <h3
-            style={{
-              marginTop: 0,
-              marginBottom: rhythm(1 / 4),
-            }}
-          >
+          <Label>READ THIS NEXT:</Label>
+          <Title>
             <Link
               to={{
                 pathname: prefixLink(nextPost.path),
@@ -49,7 +49,7 @@ class ReadNext extends React.Component {
             >
               {nextPost.data.title}
             </Link>
-          </h3>
+          </Title>
           <p>{body}</p>
           <hr />
         </div>
