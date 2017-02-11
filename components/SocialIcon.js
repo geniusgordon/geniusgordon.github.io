@@ -8,7 +8,7 @@ import LinkedInIcon from 'react-icons/lib/fa/linkedin-square';
 import { config } from 'config';
 
 const Link = styled.a`
-  margin: ${() => '0 ' + rhythm(0.1)};
+  margin: ${() => '0 ' + rhythm(0.15)};
   box-shadow: none;
   text-decoration: none;
   color: inherit;

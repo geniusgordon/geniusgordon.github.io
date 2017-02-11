@@ -1,6 +1,6 @@
 import React from 'react';
 import { config } from 'config';
-import { rhythm } from 'utils/typography';
+import { rhythm, scale } from 'utils/typography';
 import { prefixLink } from 'gatsby-helpers';
 import styled from 'styled-components';
 import { Github, Twitter, Facebook, LinkedIn } from 'components/SocialIcon';
@@ -19,6 +19,11 @@ const Avatar = styled.img`
   border-radius: 50%;
 `;
 
+const Social = styled.span`
+  font-size: ${() => scale(0.3).fontSize};
+  line-height: ${() => scale(0.3).lineHeight};
+`;
+
 class Bio extends React.Component {
   render() {
     return (
@@ -28,10 +33,12 @@ class Bio extends React.Component {
           Written by{' '}
           <strong>{config.authorName}</strong>
           {' '}who lives and works in Taiwan building useful things.{' '}
-          <Github />
-          <Twitter />
-          <Facebook />
-          <LinkedIn />
+          <Social>
+            <Github />
+            <Twitter />
+            <Facebook />
+            <LinkedIn />
+          </Social>
         </p>
       </Container>
     );

@@ -8,6 +8,10 @@ import Bio from 'components/Bio';
 import ReadNext from 'components/ReadNext';
 import '../css/zenburn.css';
 
+const Container = styled.div`
+  padding: ${() => '0 ' + rhythm(0.75)};
+`;
+
 const PostDate = styled.div`
   font-size: ${() => scale(-0.2).fontSize};
   line-height: ${() => scale(-0.2).lineHeight};
@@ -20,7 +24,7 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data;
 
     return (
-      <div className="markdown">
+      <Container className="markdown">
         <Helmet title={`${post.title} | ${config.blogTitle}`} />
         <PostDate>{format(post.date, 'MMM DD, YYYY')}</PostDate>
         <h1 style={{ marginTop: 0 }}>{post.title}</h1>
@@ -28,7 +32,7 @@ class MarkdownWrapper extends React.Component {
         <hr style={{ marginBottom: rhythm(2) }} />
         <ReadNext post={post} pages={route.pages} />
         <Bio />
-      </div>
+      </Container>
     );
   }
 }
