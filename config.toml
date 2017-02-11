@@ -1,3 +1,4 @@
-blogTitle = "My Awesome Blog"
-authorName = "Kyle Mathews"
-linkPrefix = "/gatsby-starter-blog"
+blogTitle = "Geniusgordon"
+authorName = "Gordon Ueng"
+profilePic = "http://www.gravatar.com/avatar/c120f55cea58c16e941500789f1e2bb1?size=512"
+linkPrefix = "/"
