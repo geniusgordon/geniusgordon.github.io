@@ -16,11 +16,7 @@ const Avatar = styled.img`
 class Bio extends React.Component {
   render() {
     return (
-      <p
-        style={{
-          marginBottom: rhythm(2.5),
-        }}
-      >
+      <p style={{ marginBottom: rhythm(2.5) }} >
         <Avatar src={config.profilePic} alt={`author ${config.authorName}`} />
         Written by{' '}
         <strong>{config.authorName}</strong>
