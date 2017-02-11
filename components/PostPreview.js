@@ -43,7 +43,6 @@ const ReadMore = styled.p`
 `;
 
 const PostPreview = ({ page }) => {
-  console.log(page);
   const content = get(page, 'data.body', '');
   const preview = prune(content.replace(/<[^>]*>/g, ''), 200);
   return (
