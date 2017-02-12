@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { prefixLink } from 'gatsby-helpers';
-import { prune, include } from 'underscore.string';
+import { include } from 'underscore.string';
 import find from 'lodash/find';
 import styled from 'styled-components';
 import { rhythm, scale } from 'utils/typography';
+import preview from 'utils/preview';
 
 const Label = styled.h6`
   font-size: ${() => scale(-0.5).fontSize};
@@ -31,9 +32,8 @@ class ReadNext extends React.Component {
     } else {
       nextPost = find(pages, page =>
         include(page.path, readNext.slice(1, -1)));
-      // Create pruned version of the body.
       const html = nextPost.data.body;
-      const body = prune(html.replace(/<[^>]*>/g, ''), 200);
+      const body = preview(html);
 
       return (
         <div>
@@ -50,7 +50,7 @@ class ReadNext extends React.Component {
               {nextPost.data.title}
             </Link>
           </Title>
-          <p>{body}</p>
+          <p dangerouslySetInnerHTML={{ __html: body }} />
           <hr />
         </div>
       );

@@ -4,8 +4,8 @@ import { prefixLink } from 'gatsby-helpers';
 import { rhythm, scale } from 'utils/typography';
 import styled from 'styled-components';
 import get from 'lodash/get';
-import prune from 'underscore.string/prune';
 import format from 'date-fns/format';
+import preview from 'utils/preview';
 
 const Card = styled(Link)`
   display: block;
@@ -48,16 +48,16 @@ const ReadMore = styled.p`
 `;
 
 const PostPreview = ({ page }) => {
-  const content = get(page, 'data.body', '');
-  const preview = prune(content.replace(/<[^>]*>/g, ''), 200);
+  const content = preview(page.data.body);
   const date = get(page, 'data.date');
   const featuredImage = get(page, 'data.featuredImage');
+  console.log(content);
   return (
     <Card to={prefixLink(page.path)}>
       <Title>{get(page, 'data.title', page.path)}</Title>
       {date ? <Date>{format(date, 'MMM DD, YYYY')}</Date> : null}
       {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
-      <Content>{preview}</Content>
+      <Content dangerouslySetInnerHTML={{ __html: content }} />
       <ReadMore>Read more...</ReadMore>
     </Card>
   );
