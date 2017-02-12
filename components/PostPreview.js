@@ -30,6 +30,11 @@ const Date = styled.div`
   color: #a6a6a6;
 `;
 
+const FeaturedImage = styled.img`
+  margin: 0;
+  width: 100%;
+`;
+
 const Content = styled.p`
   margin: 0;
 `;
@@ -45,10 +50,13 @@ const ReadMore = styled.p`
 const PostPreview = ({ page }) => {
   const content = get(page, 'data.body', '');
   const preview = prune(content.replace(/<[^>]*>/g, ''), 200);
+  const date = get(page, 'data.date');
+  const featuredImage = get(page, 'data.featuredImage');
   return (
-    <Card style={{ boxShadow: 'none' }} to={prefixLink(page.path)}>
+    <Card to={prefixLink(page.path)}>
       <Title>{get(page, 'data.title', page.path)}</Title>
-      <Date>{format(page.data.date, 'MMM DD, YYYY')}</Date>
+      {date ? <Date>{format(date, 'MMM DD, YYYY')}</Date> : null}
+      {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
       <Content>{preview}</Content>
       <ReadMore>Read more...</ReadMore>
     </Card>

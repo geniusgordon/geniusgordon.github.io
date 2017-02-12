@@ -3,6 +3,7 @@ title: My Second Post!
 date: "2015-05-06T23:46:37.121Z"
 readNext: "/hi-folks/"
 path: "/my-second-post/"
+featuredImage: "http://i.imgur.com/rR7ED24.png"
 ---
 
 Wow! I love blogging so much already.

@@ -18,16 +18,29 @@ const PostDate = styled.div`
   color: #878787;
 `;
 
+const FeaturedImage = styled.img`
+  width: 100%;
+`;
+
 class MarkdownWrapper extends React.Component {
   render() {
     const { route } = this.props;
     const post = route.page.data;
-
+    const title = `${post.title} | ${config.blogTitle}`;
+    const { featuredImage } = post;
+    const meta = [
+      { property: 'og:title', content: title },
+      { property: 'og:type', content: 'article' },
+    ];
+    if (featuredImage) {
+      meta.push({ property: 'og:image', content: featuredImage });
+    }
     return (
       <Container className="markdown">
-        <Helmet title={`${post.title} | ${config.blogTitle}`} />
+        <Helmet title={title} meta={meta} />
         <PostDate>{format(post.date, 'MMM DD, YYYY')}</PostDate>
         <h1 style={{ marginTop: 0 }}>{post.title}</h1>
+        {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
         <div dangerouslySetInnerHTML={{ __html: post.body }} />
         <hr style={{ marginBottom: rhythm(2) }} />
         <ReadNext post={post} pages={route.pages} />
