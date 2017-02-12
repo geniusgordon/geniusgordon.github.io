@@ -1,7 +1,7 @@
 ---
 title: Hello Gatsby
 date: "2017-02-13"
-path: "/hello-gatsby/"
+path: "/2017-02-13-hello-gatsby/"
 featuredImage: "http://i.imgur.com/R3RjKw2.png"
 ---
 
