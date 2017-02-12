@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import format from 'date-fns/format';
 import styled from 'styled-components';
 import { rhythm, scale } from 'utils/typography';
+import { preview, removeTags } from 'utils/preview';
 import { config } from 'config';
 import Bio from 'components/Bio';
 import ReadNext from 'components/ReadNext';
@@ -27,8 +28,12 @@ class MarkdownWrapper extends React.Component {
     const { route } = this.props;
     const post = route.page.data;
     const title = `${post.title} | ${config.blogTitle}`;
+    const description = removeTags(preview(post.body));
     const { featuredImage } = post;
-    const meta = [{ property: 'og:title', content: title }];
+    const meta = [
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+    ];
     if (featuredImage) {
       meta.push({ property: 'og:image', content: featuredImage });
     }

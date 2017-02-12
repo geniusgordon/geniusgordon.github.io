@@ -5,7 +5,7 @@ import { rhythm, scale } from 'utils/typography';
 import styled from 'styled-components';
 import get from 'lodash/get';
 import format from 'date-fns/format';
-import preview from 'utils/preview';
+import { preview } from 'utils/preview';
 
 const Card = styled(Link)`
   display: block;
