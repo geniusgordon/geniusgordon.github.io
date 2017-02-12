@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import format from 'date-fns/format';
 import styled from 'styled-components';
+import ReactDisqusThread from 'react-disqus-thread';
 import { rhythm, scale } from 'utils/typography';
 import { preview, removeTags } from 'utils/preview';
 import { config } from 'config';
@@ -13,14 +14,27 @@ const Container = styled.div`
   padding: ${() => '0 ' + rhythm(0.75)};
 `;
 
-const PostDate = styled.div`
+const Date = styled.div`
   font-size: ${() => scale(-0.2).fontSize};
   line-height: ${() => scale(-0.2).lineHeight};
   color: #878787;
 `;
 
+const Title = styled.h1`
+  margin-top: 0;
+`;
+
 const FeaturedImage = styled.img`
   width: 100%;
+`;
+
+const Hr = styled.hr`
+  margin-bottom: ${() => rhythm(1)};
+`;
+
+const Padding = styled.div`
+  width: 100%;
+  margin-bottom: ${props => rhythm(props.rhythm || 1)};
 `;
 
 class MarkdownWrapper extends React.Component {
@@ -40,13 +54,15 @@ class MarkdownWrapper extends React.Component {
     return (
       <Container className="markdown">
         <Helmet title={title} meta={meta} />
-        <PostDate>{format(post.date, 'MMM DD, YYYY')}</PostDate>
-        <h1 style={{ marginTop: 0 }}>{post.title}</h1>
+        <Date>{format(post.date, 'MMM DD, YYYY')}</Date>
+        <Title>{post.title}</Title>
         {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
         <div dangerouslySetInnerHTML={{ __html: post.body }} />
-        <hr style={{ marginBottom: rhythm(2) }} />
+        <Hr />
         <ReadNext post={post} pages={route.pages} />
         <Bio />
+        <Padding rhythm={2} />
+        <ReactDisqusThread shortname="geniusgordon" />
       </Container>
     );
   }

@@ -7,7 +7,7 @@ import { Github, Twitter, Facebook, LinkedIn } from 'components/SocialIcon';
 
 const Container = styled.div`
   padding-top: ${() => rhythm(0.5)};
-  padding-bottom: ${() => rhythm(1)};
+  padding-bottom: ${() => rhythm(0.5)};
   display: flex;
 `;
 
