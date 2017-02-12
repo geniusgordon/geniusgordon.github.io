@@ -21,14 +21,21 @@ class BlogIndex extends React.Component {
         get(page, 'file.ext') === 'md' && !include(page.path, '/404') ||
           get(page, 'data.date'),
     );
+    const meta = [
+      { property: 'og:title', content: config.blogTitle },
+      { property: 'og:image', content: config.profilePic },
+      {
+        property: 'og:description',
+        content:
+          `Written by ${config.authorName} who lives and works in Taiwan building useful things.`
+        ,
+      },
+    ];
     return (
       <div>
         <Helmet
           title={config.blogTitle}
-          meta={[
-            { name: 'description', content: 'Sample blog' },
-            { name: 'keywords', content: 'blog, articles' },
-          ]}
+          meta={meta}
         />
         <div>
           {visiblePages.map(page => <PostPreview key={page.path} page={page} />)}
