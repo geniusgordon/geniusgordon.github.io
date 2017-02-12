@@ -10,6 +10,7 @@ const Base = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const Container = styled.div`
   max-width: 640px;
   margin-left: auto;
@@ -18,29 +19,29 @@ const Container = styled.div`
 
 const IndexHeader = styled.div`
   width: 100%;
-  padding-left: ${() => rhythm(1)};
-  padding-right: ${() => rhythm(1)};
-  padding-top: ${() => rhythm(1.5)};
+  padding-left: ${rhythm(1)};
+  padding-right: ${rhythm(1)};
+  padding-top: ${rhythm(1.5)};
   background-color: white;
   box-shadow: 0 4px 2px -2px rgba(0,0,0,.05);
-  margin-bottom: ${() => rhythm(2)};
+  margin-bottom: ${rhythm(2)};
 `;
 
 const Navbar = styled.div`
   background-color: white;
   box-shadow: 0 4px 2px -2px rgba(0,0,0,.05);
-  margin-bottom: ${() => rhythm(2)};
+  margin-bottom: ${rhythm(2)};
 `;
 
 const H1 = styled.h1`
-  font-size: ${() => scale(1.2).fontSize};
-  line-height: ${() => scale(1.2).lineHeight};
+  font-size: ${scale(1.2).fontSize};
+  line-height: ${scale(1.2).lineHeight};
   margin-top: 0;
-  margin-bottom: ${() => rhythm(0.5)};
+  margin-bottom: ${rhythm(0.5)};
 `;
 
 const H3 = styled.h3`
-  padding: ${() => rhythm(0.5)};
+  padding: ${rhythm(0.5)};
   font-family: Montserrat, sans-serif;
   margin: 0;
 `;

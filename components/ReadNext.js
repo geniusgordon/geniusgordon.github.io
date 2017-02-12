@@ -8,15 +8,15 @@ import { rhythm, scale } from 'utils/typography';
 import preview from 'utils/preview';
 
 const Label = styled.h6`
-  font-size: ${() => scale(-0.5).fontSize};
-  line-height: ${() => scale(-0.5).lineHeight};
+  font-size: ${scale(-0.5).fontSize};
+  line-height: ${scale(-0.5).lineHeight};
   margin: 0;
   letter-spacing: -0.25;
 `;
 
 const Title = styled.h3`
   margin-top: 0;
-  margin-bottom: ${() => rhythm(1 / 4)};
+  margin-bottom: ${rhythm(1 / 4)};
 `;
 
 class ReadNext extends React.Component {

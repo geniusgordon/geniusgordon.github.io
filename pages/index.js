@@ -5,11 +5,16 @@ import reverse from 'lodash/reverse';
 import get from 'lodash/get';
 import { prefixLink } from 'gatsby-helpers';
 import { rhythm } from 'utils/typography';
+import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { config } from 'config';
 import include from 'underscore.string/include';
 import Bio from 'components/Bio';
 import PostPreview from 'components/PostPreview';
+
+const Container = styled.div`
+  padding-bottom: ${rhythm(2)};
+`;
 
 class BlogIndex extends React.Component {
   render() {
@@ -37,9 +42,9 @@ class BlogIndex extends React.Component {
           title={config.blogTitle}
           meta={meta}
         />
-        <div>
+        <Container>
           {visiblePages.map(page => <PostPreview key={page.path} page={page} />)}
-        </div>
+        </Container>
       </div>
     );
   }

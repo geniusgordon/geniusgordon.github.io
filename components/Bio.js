@@ -6,22 +6,22 @@ import styled from 'styled-components';
 import { Github, Twitter, Facebook, LinkedIn } from 'components/SocialIcon';
 
 const Container = styled.div`
-  padding-top: ${() => rhythm(0.5)};
-  padding-bottom: ${() => rhythm(0.5)};
+  padding-top: ${rhythm(0.5)};
+  padding-bottom: ${rhythm(0.5)};
   display: flex;
 `;
 
 const Avatar = styled.img`
-  margin-right: ${() => rhythm(1 / 4)};
+  margin-right: ${rhythm(1 / 4)};
   margin-bottom: 0;
-  width: ${() => rhythm(2)};
-  height: ${() => rhythm(2)};
+  width: ${rhythm(2)};
+  height: ${rhythm(2)};
   border-radius: 50%;
 `;
 
 const Social = styled.span`
-  font-size: ${() => scale(0.3).fontSize};
-  line-height: ${() => scale(0.3).lineHeight};
+  font-size: ${scale(0.3).fontSize};
+  line-height: ${scale(0.3).lineHeight};
 `;
 
 class Bio extends React.Component {

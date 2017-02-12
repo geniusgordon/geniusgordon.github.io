@@ -10,8 +10,8 @@ import { preview } from 'utils/preview';
 const Card = styled(Link)`
   display: block;
   background-color: #fff;
-  padding: ${() => rhythm(1)};
-  margin-bottom: ${() => rhythm(0.5)};
+  padding: ${rhythm(1)};
+  margin-bottom: ${rhythm(0.5)};
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);
   box-shadow: none;
@@ -25,8 +25,8 @@ const Title = styled.h3`
 `;
 
 const Date = styled.div`
-  font-size: ${() => scale(-0.2).fontSize};
-  line-height: ${() => scale(-0.2).lineHeight};
+  font-size: ${scale(-0.2).fontSize};
+  line-height: ${scale(-0.2).lineHeight};
   color: #a6a6a6;
 `;
 
@@ -40,10 +40,10 @@ const Content = styled.p`
 `;
 
 const ReadMore = styled.p`
-  font-size: ${() => scale(-1).fontSize};
-  line-height: ${() => scale(-1).lineHeight};
+  font-size: ${scale(-1).fontSize};
+  line-height: ${scale(-1).lineHeight};
   color: #a6a6a6;
-  margin-top: ${() => rhythm(1)};
+  margin-top: ${rhythm(1)};
   margin-bottom: 0;
 `;
 

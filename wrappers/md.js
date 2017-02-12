@@ -11,12 +11,12 @@ import ReadNext from 'components/ReadNext';
 import '../css/zenburn.css';
 
 const Container = styled.div`
-  padding: ${() => '0 ' + rhythm(0.75)};
+  padding: ${'0 ' + rhythm(0.75)};
 `;
 
 const Date = styled.div`
-  font-size: ${() => scale(-0.2).fontSize};
-  line-height: ${() => scale(-0.2).lineHeight};
+  font-size: ${scale(-0.2).fontSize};
+  line-height: ${scale(-0.2).lineHeight};
   color: #878787;
 `;
 
@@ -29,7 +29,7 @@ const FeaturedImage = styled.img`
 `;
 
 const Hr = styled.hr`
-  margin-bottom: ${() => rhythm(1)};
+  margin-bottom: ${rhythm(1)};
 `;
 
 const Padding = styled.div`
