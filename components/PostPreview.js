@@ -51,7 +51,6 @@ const PostPreview = ({ page }) => {
   const content = preview(page.data.body);
   const date = get(page, 'data.date');
   const featuredImage = get(page, 'data.featuredImage');
-  console.log(content);
   return (
     <Card to={prefixLink(page.path)}>
       <Title>{get(page, 'data.title', page.path)}</Title>
