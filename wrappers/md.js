@@ -28,10 +28,7 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data;
     const title = `${post.title} | ${config.blogTitle}`;
     const { featuredImage } = post;
-    const meta = [
-      { property: 'og:title', content: title },
-      { property: 'og:type', content: 'article' },
-    ];
+    const meta = [{ property: 'og:title', content: title }];
     if (featuredImage) {
       meta.push({ property: 'og:image', content: featuredImage });
     }
