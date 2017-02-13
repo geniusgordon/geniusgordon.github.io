@@ -38,7 +38,7 @@ code {
   background: #e5e5e5;
   border: 1px solid #cccccc;
   display: inline;
-  font-family: Inconsolata, monospace, serif;
+  /* font-family: Inconsolata, monospace, serif; */
   max-width: 100%;
   overflow: auto;
   padding: 0 0.1625rem;

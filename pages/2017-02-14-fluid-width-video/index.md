@@ -17,7 +17,6 @@ featuredImage: "http://i.imgur.com/n2IZyte.png"
 
 ```html
 <video width="400" height="300" ... ></video>
-
 <iframe width="400" height="300" ... ></iframe>
 ```
 

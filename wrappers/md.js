@@ -22,6 +22,10 @@ const Date = styled.div`
 
 const Title = styled.h1`
   margin-top: 0;
+  @media (max-width: 640px) {
+    font-size: ${scale(0.8).fontSize};
+    line-height: ${scale(0.8).lineHeight};
+  }
 `;
 
 const FeaturedImage = styled.img`
