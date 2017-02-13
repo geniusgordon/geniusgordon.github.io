@@ -2,7 +2,7 @@
 title: Fluid Width Video
 date: "2017-02-14"
 path: "/2017-02-14-fluid-width-video/"
-featuredImage: "http://i.imgur.com/n2IZyte.png"
+featuredImage: "https://i.imgur.com/n2IZyte.png"
 ---
 
 昨天發完文用手機看發現影片長寬沒有 Responsive
@@ -48,7 +48,7 @@ video {
 
 所以如果用跟剛剛一樣的方式設定就會變成這樣
 
-![iframe](http://i.imgur.com/5ovTTT9.png)
+![iframe](https://i.imgur.com/5ovTTT9.png)
 
 解決辦法就是在 iframe 外面包一層 div
 
@@ -80,5 +80,5 @@ video {
 ## References
 
 - Css Tricks: [Fluid Width Video](https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php)
-- Bootstrap: [Responsive Embed](http://getbootstrap.com/components/#responsive-embed)
+- Bootstrap: [Responsive Embed](https://getbootstrap.com/components/#responsive-embed)
 

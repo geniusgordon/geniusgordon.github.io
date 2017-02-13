@@ -2,7 +2,7 @@
 title: Hello Gatsby
 date: "2017-02-13"
 path: "/2017-02-13-hello-gatsby/"
-featuredImage: "http://i.imgur.com/R3RjKw2.png"
+featuredImage: "https://i.imgur.com/R3RjKw2.png"
 ---
 
 每次都說要寫個小blog簡單紀錄自己學習的東西
