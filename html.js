@@ -5,13 +5,6 @@ import { GoogleFont, TypographyStyle } from 'react-typography';
 import typography from './utils/typography';
 
 const BUILD_TIME = new Date().getTime();
-const baseStyle = {
-  margin: 0,
-  padding: 0,
-  backgroundColor: '#fafafa',
-  width: '100%',
-  height: '100%',
-};
 
 module.exports = React.createClass({
   displayName: 'HTML',
@@ -34,7 +27,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <html lang="en" style={baseStyle}>
+      <html lang="en">
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -48,11 +41,10 @@ module.exports = React.createClass({
           <GoogleFont typography={typography} />
           {css}
         </head>
-        <body style={baseStyle}>
+        <body>
           <div
             id="react-mount"
             dangerouslySetInnerHTML={{ __html: body }}
-            style={baseStyle}
           />
           <script src={prefixLink(`/bundle.js?t=${BUILD_TIME}`)} />
         </body>

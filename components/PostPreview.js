@@ -10,7 +10,7 @@ import { preview } from 'utils/preview';
 const Card = styled(Link)`
   display: block;
   background-color: #fff;
-  padding: ${rhythm(1)};
+  padding: ${rhythm(0.75)};
   margin-bottom: ${rhythm(0.5)};
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.09);

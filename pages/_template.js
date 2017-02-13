@@ -5,6 +5,7 @@ import { rhythm, scale } from 'utils/typography';
 import { config } from 'config';
 import styled from 'styled-components';
 import Bio from 'components/Bio';
+import 'css/base.css';
 
 const Base = styled.div`
   width: 100%;
@@ -19,8 +20,8 @@ const Container = styled.div`
 
 const IndexHeader = styled.div`
   width: 100%;
-  padding-left: ${rhythm(1)};
-  padding-right: ${rhythm(1)};
+  padding-left: ${rhythm(0.5)};
+  padding-right: ${rhythm(0.5)};
   padding-top: ${rhythm(1.5)};
   background-color: white;
   box-shadow: 0 4px 2px -2px rgba(0,0,0,.05);
@@ -34,8 +35,6 @@ const Navbar = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-size: ${scale(1.2).fontSize};
-  line-height: ${scale(1.2).lineHeight};
   margin-top: 0;
   margin-bottom: ${rhythm(0.5)};
 `;

@@ -30,9 +30,7 @@ var md = markdownIt({
   .use(require('markdown-it-deflist'))
   .use(require('markdown-it-abbr'))
   .use(require('markdown-it-attrs'))
-  .use(require('markdown-it-video', {
-    youtube: { width: 1280, height: 720 },
-  }));
+  .use(require('markdown-it-video'));
 
 module.exports = function(content) {
   this.cacheable();
