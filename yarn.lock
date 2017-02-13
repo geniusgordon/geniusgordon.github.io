@@ -5378,6 +5378,10 @@ react-icons@^2.2.3:
   dependencies:
     react-icon-base "2.0.4"
 
+react-medium-image-zoom@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-medium-image-zoom/-/react-medium-image-zoom-0.8.0.tgz#e9166eb0523f3de2be7fd9e88f024f05330695b1"
+
 react-moment-proptypes@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-moment-proptypes/-/react-moment-proptypes-1.2.1.tgz#f672cb07e49f2a32c08f2c02ac30cb255850dc0a"

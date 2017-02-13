@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import format from 'date-fns/format';
 import styled from 'styled-components';
+import ImageZoom from 'react-medium-image-zoom';
 import ReactDisqusThread from 'react-disqus-thread';
 import { rhythm, scale } from 'utils/typography';
 import { preview, removeTags } from 'utils/preview';
@@ -42,6 +43,42 @@ const Padding = styled.div`
 `;
 
 class MarkdownWrapper extends React.Component {
+  // split html by <img>
+  // and replace <img> with <ImageZoom />
+  renderMarkdown(body) {
+    const elements = [];
+    let buffer = [];
+    let isPre = false;
+    body.split('\n').forEach((element, i) => {
+      if (/^<pre>/.test(element)) {
+        isPre = true;
+      } else if (/<\/pre>$/.test(element)) {
+        isPre = false;
+      }
+      if (!isPre && /<img/.test(element)) {
+        elements.push(
+          <div
+            key={i}
+            dangerouslySetInnerHTML={{ __html: buffer.join('\n') }}
+          />,
+        );
+        if (element.match(/src="(.*?)"/)) {
+          const src = element.match(/src="(.*?)"/)[1];
+          const alt = element.match(/alt="(.*?)"/)
+            ? element.match(/alt="(.*?)"/)[1]
+            : '';
+          elements.push(<ImageZoom key={`img-${i}`} image={{ src, alt }} />);
+        }
+        buffer = [];
+      } else {
+        buffer.push(element);
+      }
+    });
+    elements.push(
+      <div key="end" dangerouslySetInnerHTML={{ __html: buffer.join('\n') }} />,
+    );
+    return elements;
+  }
   render() {
     const { route } = this.props;
     const post = route.page.data;
@@ -61,7 +98,7 @@ class MarkdownWrapper extends React.Component {
         <Date>{format(post.date, 'MMM DD, YYYY')}</Date>
         <Title>{post.title}</Title>
         {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
-        <div dangerouslySetInnerHTML={{ __html: post.body }} />
+        {this.renderMarkdown(post.body)}
         <Hr />
         <ReadNext post={post} pages={route.pages} />
         <Bio />
