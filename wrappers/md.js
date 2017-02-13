@@ -62,7 +62,11 @@ class MarkdownWrapper extends React.Component {
         <ReadNext post={post} pages={route.pages} />
         <Bio />
         <Padding rhythm={2} />
-        <ReactDisqusThread shortname="geniusgordon" />
+        <ReactDisqusThread
+          shortname="geniusgordon"
+          identifier={post.path}
+          title={post.title}
+        />
       </Container>
     );
   }
