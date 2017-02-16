@@ -5,11 +5,11 @@ path: /2017-02-13-hello-gatsby/
 featuredImage: https://i.imgur.com/R3RjKw2.png
 ---
 
-每次都說要寫個小blog簡單紀錄自己學習的東西
+每次都說要寫個小 blog 簡單紀錄自己學習的東西
 
 最後都是不了了之
 
-這次大概也是QQ吧
+這次大概也是 QQ 吧
 
 <!--more-->
 
@@ -67,6 +67,6 @@ Starter 就是別人寫好的 Gatsby Template，官方也有提供一些:
 
 希望用了一個這麼爽的 static site generator
 
-我就可以養成寫 Blog 的習慣QQ
+我就可以養成寫 Blog 的習慣 QQ
 
 *[SPA]: Single Page Application
