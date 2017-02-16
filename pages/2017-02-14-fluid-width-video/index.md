@@ -1,8 +1,8 @@
 ---
 title: Fluid Width Video
-date: "2017-02-14"
-path: "/2017-02-14-fluid-width-video/"
-featuredImage: "https://i.imgur.com/n2IZyte.png"
+date: 2017-02-14
+path: /2017-02-14-fluid-width-video/
+featuredImage: https://i.imgur.com/n2IZyte.png
 ---
 
 昨天發完文用手機看發現影片長寬沒有 Responsive
