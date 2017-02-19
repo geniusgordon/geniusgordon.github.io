@@ -2,7 +2,7 @@
 title: AMP project
 date: 2017-02-20
 path: /2017-02-20-amp-project/
-featuredImage: http://i.imgur.com/lqxEEtF.png
+featuredImage: https://i.imgur.com/lqxEEtF.png
 ---
 
 最近用 Google Search 的時候很常看到搜尋結果有一個 <span style="display: inline-block; width: 20px; height: 20px; line-height: 20px; padding-left: 4px; border-radius: 50%; color: white; background-color: black">⚡</span> AMP 的標記
