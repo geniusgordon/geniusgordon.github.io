@@ -8,11 +8,13 @@
   },
   "dependencies": {
     "chalk": "^1.1.3",
+    "cheerio": "^0.22.0",
     "commander": "^2.9.0",
     "date-fns": "^1.27.2",
     "front-matter": "^2.1.2",
     "gatsby": "^0.12.22",
     "highlight.js": "^9.9.0",
+    "image-size": "^0.5.1",
     "lodash": "^4.17.2",
     "markdown-it": "^8.2.2",
     "markdown-it-abbr": "^1.0.4",
@@ -21,6 +23,7 @@
     "markdown-it-footnote": "^3.0.1",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-video": "^0.4.0",
+    "mkdirp": "^0.5.1",
     "moment": "^2.17.1",
     "object-assign": "^4.1.1",
     "react-addons-shallow-compare": "^15.4.1",
@@ -32,7 +35,10 @@
     "react-medium-image-zoom": "^0.8.0",
     "react-responsive-grid": "^0.3.3",
     "react-typography": "^0.15.0",
+    "recursive-readdir": "^2.1.1",
+    "rimraf": "^2.6.0",
     "styled-components": "^1.4.3",
+    "sync-request": "^4.0.1",
     "typography": "^0.15.0",
     "typography-theme-wordpress-2016": "^0.15.0",
     "underscore.string": "^3.2.3"
@@ -53,7 +59,8 @@
   "scripts": {
     "new": "scripts/new.js",
     "develop": "gatsby develop",
+    "ampify": "node ampify",
     "build": "gatsby build",
-    "deploy": "gatsby build && gh-pages -d public -b master"
+    "deploy": "yarn build && yarn ampify && gh-pages -d public -b master"
   }
 }
