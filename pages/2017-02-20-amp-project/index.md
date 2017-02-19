@@ -61,7 +61,7 @@ Google 了一下發現 Gatsby 社群裡有人已經寫了一個小小的 [script
 
 終於讓我的 Blog 在 Google Search 的時候也會有潮潮的閃電啦
 
-![AMP](http://i.imgur.com/f4sPDUn.png)
+![AMP](https://i.imgur.com/f4sPDUn.png)
 
 ## References
 
