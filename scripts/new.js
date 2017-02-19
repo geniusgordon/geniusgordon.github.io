@@ -27,7 +27,7 @@ try {
   fs.mkdirSync(dir);
   fs.writeFileSync(
     `${dir}/index.md`,
-    `---\ntitle: ${title}\ndate: ${date}\npath: /${path}/\n---`
+    `---\ntitle: ${title}\ndate: ${date}\npath: /${date}-${path}/\n---`
   );
   console.log(`Created new post at ${dir}/index.md`);
 } catch (error) {

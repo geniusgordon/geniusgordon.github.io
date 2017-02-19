@@ -1,7 +1,7 @@
 ---
 title: Styling in Gatsby
 date: 2017-02-16
-path: /styling-in-gatsby/
+path: /2017-02-16-styling-in-gatsby/
 ---
 
 應該有些人有發現

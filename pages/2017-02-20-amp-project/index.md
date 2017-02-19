@@ -1,7 +1,7 @@
 ---
 title: AMP project
 date: 2017-02-20
-path: /amp-project/
+path: /2017-02-20-amp-project/
 featuredImage: http://i.imgur.com/lqxEEtF.png
 ---
 
