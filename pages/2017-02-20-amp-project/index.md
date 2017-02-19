@@ -43,7 +43,7 @@ AMP 簡單分成三個部份
 
 看到 Cache 這個字就是跟快有關係
 
-[Google AMP Cache](https://developers.google.com/amp/cache/) 會把合格的 AMP 網頁用 cdn 的方式暫存起來
+[Google AMP Cache](https://developers.google.com/amp/cache/) 會把合格的 AMP 網頁用 cdn 的方式存起來
 
 總之就是更快
 
