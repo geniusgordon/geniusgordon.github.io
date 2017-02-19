@@ -7,6 +7,7 @@ const sizeOf = require('image-size');
 const request = require('sync-request');
 const rmdir = require('rimraf');
 const mkdirp = require('mkdirp');
+const CleanCSS = require('clean-css');
 
 //  The director that we will be creating an amp verion of.
 //  Creating an amp version ultimately means creating an 'amp'
@@ -129,7 +130,7 @@ const ampify = function(html, filePath) {
   // We are using Sass so we need to get each of the styles we need for the amp version of the pages
   // and compile it to minified sass.
 
-  var css = fs.readFileSync('css/zenburn.css') + fs.readFileSync('css/base.css');
+  var css = (new CleanCSS().minify(['css/zenburn.css', 'css/base.css'])).styles;
 
   // Remove our styles and add them to the css we are going to put in the custom amp
   // style element
