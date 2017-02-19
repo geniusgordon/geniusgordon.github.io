@@ -9,11 +9,11 @@ featuredImage: https://i.imgur.com/lqxEEtF.png
 
 前一陣子好奇查了一下發現是拿來加速手機瀏覽網頁的東西
 
+<!--more-->
+
 然後又剛好看到 geniustanley 大大的這篇 [blog](https://geniustanley.github.io/2017/02/20/Google-AMP-1/)
 
 就想說來動手玩看看
-
-<!--more-->
 
 ## What is AMP?
 
