@@ -19,6 +19,10 @@ const Avatar = styled.img`
   border-radius: 50%;
 `;
 
+const Description = styled.p`
+  flex: 1;
+`;
+
 const Social = styled.span`
   font-size: ${scale(0.3).fontSize};
   line-height: ${scale(0.3).lineHeight};
@@ -29,7 +33,7 @@ class Bio extends React.Component {
     return (
       <Container>
         <Avatar src={config.profilePic} alt={`author ${config.authorName}`} />
-        <p>
+        <Description>
           Written by{' '}
           <strong>{config.authorName}</strong>
           {' '}who lives and works in Taiwan building useful things.{' '}
@@ -39,7 +43,7 @@ class Bio extends React.Component {
             <Facebook />
             <LinkedIn />
           </Social>
-        </p>
+        </Description>
       </Container>
     );
   }
