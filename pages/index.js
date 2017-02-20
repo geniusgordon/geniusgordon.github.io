@@ -31,9 +31,9 @@ class BlogIndex extends React.Component {
       { property: 'og:image', content: config.profilePic },
       {
         property: 'og:description',
-        content:
+        content: (
           `Written by ${config.authorName} who lives and works in Taiwan building useful things.`
-        ,
+        ),
       },
     ];
     return (
@@ -43,7 +43,9 @@ class BlogIndex extends React.Component {
           meta={meta}
         />
         <Container>
-          {visiblePages.map(page => <PostPreview key={page.path} page={page} />)}
+          {visiblePages.map(page => (
+            <PostPreview key={page.path} page={page} />
+          ))}
         </Container>
       </div>
     );
