@@ -92,6 +92,7 @@ class MarkdownWrapper extends React.Component {
     if (featuredImage) {
       meta.push({ property: 'og:image', content: featuredImage });
     }
+    console.log(post.path, post.title);
     return (
       <Container className="markdown">
         <Helmet title={title} meta={meta} />

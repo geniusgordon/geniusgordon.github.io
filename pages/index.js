@@ -36,12 +36,10 @@ class BlogIndex extends React.Component {
         ),
       },
     ];
+    const link = { rel: 'amphtml', href: '/amp/' };
     return (
       <div>
-        <Helmet
-          title={config.blogTitle}
-          meta={meta}
-        />
+        <Helmet title={config.blogTitle} meta={meta} link={link} />
         <Container>
           {visiblePages.map(page => (
             <PostPreview key={page.path} page={page} />

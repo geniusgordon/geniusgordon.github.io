@@ -36,7 +36,9 @@ class Bio extends React.Component {
         <Description>
           Written by{' '}
           <strong>{config.authorName}</strong>
-          {' '}who lives and works in Taiwan building useful things.{' '}
+          {' '}
+          who lives and works in Taiwan building useful things. 💟 React.
+          {' '}
           <Social>
             <Github />
             <Twitter />

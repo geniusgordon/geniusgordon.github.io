@@ -4,11 +4,13 @@ const recursive = require('recursive-readdir');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const sizeOf = require('image-size');
-const request = require('sync-request');
+const fetch = require('isomorphic-fetch');
 const rmdir = require('rimraf');
 const mkdirp = require('mkdirp');
 const CleanCSS = require('clean-css');
+const chalk = require('chalk');
 
+let start = Date.now();
 //  The director that we will be creating an amp verion of.
 //  Creating an amp version ultimately means creating an 'amp'
 //  directory in that with amp versions of each file from the source.
@@ -20,6 +22,7 @@ const ignoreDirs = [];
 
 // This is where we will populate the last of files to convert
 let filesToConvert = [];
+const imageCache = {};
 
 /**
  * Adds a link to the amp version of the page to the head of the html document
@@ -56,7 +59,7 @@ const addAmpVersionLink = function(html, filePath) {
   return $.html();
 };
 
-const ampify = function(html, filePath) {
+const ampify = async (html, filePath) => {
   var $;
   var round;
 
@@ -83,6 +86,7 @@ const ampify = function(html, filePath) {
    *************************************************************************************/
   //remove all script tags. If any specific script tags are needed
   //they can be added back later. This gives us a clean slate though
+  start = Date.now();
   $('script').remove();
 
   //Add the amp attribute to the html
@@ -123,6 +127,7 @@ const ampify = function(html, filePath) {
       '<script async src="https://cdn.ampproject.org/v0.js"></script>'
     );
   }
+  console.log(`  ${chalk.yellow('<head>')} ${Date.now() - start}ms`);
 
   /**************************************************************************************
    * STYLES
@@ -130,7 +135,8 @@ const ampify = function(html, filePath) {
   // We are using Sass so we need to get each of the styles we need for the amp version of the pages
   // and compile it to minified sass.
 
-  var css = (new CleanCSS().minify(['css/zenburn.css', 'css/base.css'])).styles;
+  start = Date.now();
+  let css = (new CleanCSS().minify(['css/zenburn.css', 'css/base.css'])).styles;
 
   // Remove our styles and add them to the css we are going to put in the custom amp
   // style element
@@ -167,13 +173,15 @@ const ampify = function(html, filePath) {
   // remove style attributes from everything. No inline styles with amp
   $('*').removeAttr('style');
 
+  console.log(`  ${chalk.yellow('<style>')} ${Date.now() - start}ms`);
   /**************************************************************************************
    * IMAGES
    *************************************************************************************/
   // We need to find any image without dimensions and fix that. It will make things more
   // consistent once we add the amp layouts
-  $('img:not([width]), img:not([height])').each(function() {
-    const src = $(this).attr('src');
+  start = Date.now();
+  await Promise.all($('img:not([width]), img:not([height])').map(async (index, element) => {
+    const src = $(element).attr('src');
     let width;
     let height;
 
@@ -188,23 +196,32 @@ const ampify = function(html, filePath) {
 
       // To save build time, we're going to preset some of the values
       // that we already know.
-      if ($(this).hasClass('author-img')) {
+      if ($(element).hasClass('author-img')) {
         width = 50;
         height = 50;
         // If not precomputed, we will need to get that data and get the image size
+      } else if (imageCache[imageUrl]) {
+        ({ width, height } = imageCache[imageUrl]);
+        console.log(`  ${chalk.red('Cached')} ${chalk.dim(imageUrl)}`);
       } else {
-        const response = request('GET', imageUrl);
+        const response = await fetch(imageUrl);
 
-        if (response.statusCode === 200) {
-          const size = sizeOf(response.body);
-          width = size.width;
-          height = size.height;
+        if (response.status === 200) {
+          const body = await new Promise((resolve, reject) => {
+            const chunks = [];
+            response.body.on('data', data => chunks.push(data));
+            response.body.on('end', () => resolve(Buffer.concat(chunks)));
+            response.body.on('error', reject);
+          });
+          imageCache[imageUrl] = sizeOf(body);
+          ({ width, height } = imageCache[imageUrl]);
+          console.log(`  ${chalk.cyan('Fetch')} ${chalk.dim(imageUrl)}`);
         }
       }
 
       // if we're dealing with a local file
     } else {
-      const src = $(this).attr('src');
+      const src = $(element).attr('src');
       let imageUrl;
 
       // Static file images will come straight from the static directory with no minimal path
@@ -229,7 +246,7 @@ const ampify = function(html, filePath) {
         // relative path to the domain root, otherwise amp will freak out since we aren't
         // copying images, just HTML
         if (src.startsWith('/') === false) {
-          $(this).attr({
+          $(element).attr({
             src: minimalPath + src,
           });
         }
@@ -238,17 +255,18 @@ const ampify = function(html, filePath) {
 
     // If width and height were set, add it to the image
     if (width && height) {
-      $(this).attr({
+      $(element).attr({
         width: round(width),
         height: round(height),
       });
       // if not, remove the image because something went wrong and it has no height or width
       // which will fluster AMP
     } else {
-      $(this).remove();
+      $(element).remove();
     }
-  });
+  }).get());
 
+  console.log(`  ${chalk.yellow('<amp-img>')} ${Date.now() - start}ms`);
   /**************************************************************************************
    * LINKS
    *************************************************************************************/
@@ -290,7 +308,7 @@ const ampify = function(html, filePath) {
 };
 
 // Get a list of all the files in the public directory. But ignore the amp dir
-recursive(inputDir, ['amp'], function(err, files) {
+recursive(inputDir, ['amp'], async (err, files) => {
   // Remove the directories we are going to ignore
   files = files.filter(file => {
     let ignore = false;
@@ -323,7 +341,7 @@ recursive(inputDir, ['amp'], function(err, files) {
   // For each file, modify it to add the amp page reference and then create the amp
   // version
   for (let fileToConvert of filesToConvert) {
-    console.log(`Processing: ${fileToConvert}`);
+    console.log(`${chalk.green('Processing')} ${fileToConvert}`);
     const contents = fs.readFileSync(fileToConvert, 'utf8');
 
     // Need to make sure the amp versions of files are in the amp dir
@@ -342,14 +360,8 @@ recursive(inputDir, ['amp'], function(err, files) {
     }
 
     // Add the amp url link to the top of the page then Save the file
-    fs.writeFileSync(newFileLocation, ampify(contents, fileToConvert), 'utf8');
-
-    // Add the amp url link to the top of original file
-    fs.writeFileSync(
-      fileToConvert,
-      addAmpVersionLink(contents, fileToConvert),
-      'utf8'
-    );
+    const ampHtml = await ampify(contents, fileToConvert);
+    fs.writeFileSync(newFileLocation, ampHtml, 'utf8');
   }
   console.log('The site is now AMP ready');
 });
