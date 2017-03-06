@@ -136,7 +136,7 @@ const ampify = async (html, filePath) => {
   // and compile it to minified sass.
 
   start = Date.now();
-  let css = (new CleanCSS().minify(['css/zenburn.css', 'css/base.css'])).styles;
+  let css = new CleanCSS().minify(['css/zenburn.css', 'css/base.css']).styles;
 
   // Remove our styles and add them to the css we are going to put in the custom amp
   // style element
@@ -180,93 +180,123 @@ const ampify = async (html, filePath) => {
   // We need to find any image without dimensions and fix that. It will make things more
   // consistent once we add the amp layouts
   start = Date.now();
-  await Promise.all($('img:not([width]), img:not([height])').map(async (index, element) => {
-    const src = $(element).attr('src');
-    let width;
-    let height;
+  await Promise.all(
+    $('img:not([width]), img:not([height])')
+      .map(async (index, element) => {
+        const src = $(element).attr('src');
+        let width;
+        let height;
 
-    // if the image is a URL we need to get that data and get the size of that image
-    if (src.includes('//')) {
-      let imageUrl = src;
+        // if the image is a URL we need to get that data and get the size of that image
+        if (src.includes('//')) {
+          let imageUrl = src;
 
-      // We need to add the protocol to any urls that don't have them
-      if (src.startsWith('//')) {
-        imageUrl = `http:${src}`;
-      }
+          // We need to add the protocol to any urls that don't have them
+          if (src.startsWith('//')) {
+            imageUrl = `http:${src}`;
+          }
 
-      // To save build time, we're going to preset some of the values
-      // that we already know.
-      if ($(element).hasClass('author-img')) {
-        width = 50;
-        height = 50;
-        // If not precomputed, we will need to get that data and get the image size
-      } else if (imageCache[imageUrl]) {
-        ({ width, height } = imageCache[imageUrl]);
-        console.log(`  ${chalk.red('Cached')} ${chalk.dim(imageUrl)}`);
-      } else {
-        const response = await fetch(imageUrl);
+          // To save build time, we're going to preset some of the values
+          // that we already know.
+          if ($(element).hasClass('author-img')) {
+            width = 50;
+            height = 50;
+            // If not precomputed, we will need to get that data and get the image size
+          } else if (imageCache[imageUrl]) {
+            ({ width, height } = imageCache[imageUrl]);
+            console.log(`  ${chalk.red('Cached')} ${chalk.dim(imageUrl)}`);
+          } else {
+            const response = await fetch(imageUrl);
 
-        if (response.status === 200) {
-          const body = await new Promise((resolve, reject) => {
-            const chunks = [];
-            response.body.on('data', data => chunks.push(data));
-            response.body.on('end', () => resolve(Buffer.concat(chunks)));
-            response.body.on('error', reject);
-          });
-          imageCache[imageUrl] = sizeOf(body);
-          ({ width, height } = imageCache[imageUrl]);
-          console.log(`  ${chalk.cyan('Fetch')} ${chalk.dim(imageUrl)}`);
+            if (response.status === 200) {
+              const body = await new Promise((resolve, reject) => {
+                const chunks = [];
+                response.body.on('data', data => chunks.push(data));
+                response.body.on('end', () => resolve(Buffer.concat(chunks)));
+                response.body.on('error', reject);
+              });
+              imageCache[imageUrl] = sizeOf(body);
+              ({ width, height } = imageCache[imageUrl]);
+              console.log(`  ${chalk.cyan('Fetch')} ${chalk.dim(imageUrl)}`);
+            }
+          }
+
+          // if we're dealing with a local file
+        } else {
+          const src = $(element).attr('src');
+          let imageUrl;
+
+          // Static file images will come straight from the static directory with no minimal path
+          if (src.startsWith('/static')) {
+            imageUrl = `${process.cwd()}/${inputDir}/${src
+              .substr(1)
+              .split('?')[0]}`;
+            // Any other images will come from the public directory
+          } else {
+            imageUrl = `${process.cwd()}/${inputDir}${minimalPath}${src
+              .substr()
+              .split('?')[0]}`;
+          }
+
+          if (fs.existsSync(imageUrl)) {
+            const size = sizeOf(imageUrl);
+
+            width = size.width;
+            height = size.height;
+
+            // For images that are relative to the page they are on, we need to add the
+            // relative path to the domain root, otherwise amp will freak out since we aren't
+            // copying images, just HTML
+            if (src.startsWith('/') === false) {
+              $(element).attr({
+                src: minimalPath + src,
+              });
+            }
+          }
         }
-      }
 
-      // if we're dealing with a local file
-    } else {
-      const src = $(element).attr('src');
-      let imageUrl;
-
-      // Static file images will come straight from the static directory with no minimal path
-      if (src.startsWith('/static')) {
-        imageUrl = `${process.cwd()}/${inputDir}/${src.substr(1).split('?')[
-          0
-        ]}`;
-        // Any other images will come from the public directory
-      } else {
-        imageUrl = `${process.cwd()}/${inputDir}${minimalPath}${src
-          .substr()
-          .split('?')[0]}`;
-      }
-
-      if (fs.existsSync(imageUrl)) {
-        const size = sizeOf(imageUrl);
-
-        width = size.width;
-        height = size.height;
-
-        // For images that are relative to the page they are on, we need to add the
-        // relative path to the domain root, otherwise amp will freak out since we aren't
-        // copying images, just HTML
-        if (src.startsWith('/') === false) {
+        // If width and height were set, add it to the image
+        if (width && height) {
           $(element).attr({
-            src: minimalPath + src,
+            width: round(width),
+            height: round(height),
           });
+          // if not, remove the image because something went wrong and it has no height or width
+          // which will fluster AMP
+        } else {
+          $(element).remove();
         }
-      }
-    }
-
-    // If width and height were set, add it to the image
-    if (width && height) {
-      $(element).attr({
-        width: round(width),
-        height: round(height),
-      });
-      // if not, remove the image because something went wrong and it has no height or width
-      // which will fluster AMP
-    } else {
-      $(element).remove();
-    }
-  }).get());
+      })
+      .get()
+  );
 
   console.log(`  ${chalk.yellow('<amp-img>')} ${Date.now() - start}ms`);
+  /**************************************************************************************
+   * YOUTUBES
+   *************************************************************************************/
+  start = Date.now();
+  const embeds = $('.embed-responsive');
+  embeds.each(function() {
+    const video = $(this).children().first();
+    const width = video.attr('width');
+    const height = video.attr('height');
+    const source = video.attr('src');
+    const parts = source.split('/');
+    const videoId = parts[parts.length - 1];
+    $(this).after(
+      `<amp-youtube data-videoid="${videoId}" layout="responsive" width="${width}" height="${height}"></amp-youtube>`
+    );
+    $(this).remove();
+  });
+
+  if (embeds.length > 0) {
+    $('head').append(
+      '<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>'
+    );
+  }
+
+  console.log(`  ${chalk.yellow('<amp-youtube>')} ${Date.now() - start}ms`);
+
   /**************************************************************************************
    * LINKS
    *************************************************************************************/
