@@ -36,7 +36,7 @@ class BlogIndex extends React.Component {
         ),
       },
     ];
-    const link = { rel: 'amphtml', href: '/amp/' };
+    const link = [{ rel: 'amphtml', href: '/amp/' }];
     return (
       <div>
         <Helmet title={config.blogTitle} meta={meta} link={link} />
