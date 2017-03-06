@@ -22,7 +22,17 @@ const ignoreDirs = [];
 
 // This is where we will populate the last of files to convert
 let filesToConvert = [];
-const imageCache = {};
+let cache = {
+  images: {},
+};
+const cacheFilename = '.ampify-cache.json';
+if (fs.existsSync(cacheFilename)) {
+  try {
+    cache = JSON.parse(fs.readFileSync(cacheFilename, 'utf8'));
+  } catch (e) {
+    console.warn(chalk.red('.ampify-cache.json is currupted.'));
+  }
+}
 
 /**
  * Adds a link to the amp version of the page to the head of the html document
@@ -202,8 +212,8 @@ const ampify = async (html, filePath) => {
             width = 50;
             height = 50;
             // If not precomputed, we will need to get that data and get the image size
-          } else if (imageCache[imageUrl]) {
-            ({ width, height } = imageCache[imageUrl]);
+          } else if (cache.images[imageUrl]) {
+            ({ width, height } = cache.images[imageUrl]);
             console.log(`  ${chalk.red('Cached')} ${chalk.dim(imageUrl)}`);
           } else {
             const response = await fetch(imageUrl);
@@ -215,8 +225,8 @@ const ampify = async (html, filePath) => {
                 response.body.on('end', () => resolve(Buffer.concat(chunks)));
                 response.body.on('error', reject);
               });
-              imageCache[imageUrl] = sizeOf(body);
-              ({ width, height } = imageCache[imageUrl]);
+              cache.images[imageUrl] = sizeOf(body);
+              ({ width, height } = cache.images[imageUrl]);
               console.log(`  ${chalk.cyan('Fetch')} ${chalk.dim(imageUrl)}`);
             }
           }
@@ -393,5 +403,6 @@ recursive(inputDir, ['amp'], async (err, files) => {
     const ampHtml = await ampify(contents, fileToConvert);
     fs.writeFileSync(newFileLocation, ampHtml, 'utf8');
   }
+  fs.writeFileSync(cacheFilename, JSON.stringify(cache), 'utf8');
   console.log('The site is now AMP ready');
 });
