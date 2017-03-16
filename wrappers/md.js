@@ -42,6 +42,12 @@ const Padding = styled.div`
   margin-bottom: ${props => rhythm(props.rhythm || 1)};
 `;
 
+const styles = {
+  image: {
+    boxShadow: '0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3)',
+  },
+};
+
 class MarkdownWrapper extends React.Component {
   // split html by <img>
   // and replace <img> with <ImageZoom />
@@ -67,7 +73,12 @@ class MarkdownWrapper extends React.Component {
           const alt = element.match(/alt="(.*?)"/)
             ? element.match(/alt="(.*?)"/)[1]
             : '';
-          elements.push(<ImageZoom key={`img-${i}`} image={{ src, alt }} />);
+          elements.push(
+            <ImageZoom
+              key={`img-${i}`}
+              image={{ src, alt, style: styles.image }}
+            />,
+          );
         }
         buffer = [];
       } else {
@@ -92,7 +103,6 @@ class MarkdownWrapper extends React.Component {
     if (featuredImage) {
       meta.push({ property: 'og:image', content: featuredImage });
     }
-    console.log(post.path, post.title);
     return (
       <Container className="markdown">
         <Helmet title={title} meta={meta} />
