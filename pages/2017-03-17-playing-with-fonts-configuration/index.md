@@ -1,7 +1,7 @@
 ---
 title: 字體調教心得
 date: 2017-03-17
-path: /2017-03-17-字體調教心得/
+path: /2017-03-17-playing-with-fonts-configuration/
 ---
 
 一陣子沒發文了 QQ
@@ -24,7 +24,7 @@ path: /2017-03-17-字體調教心得/
 
 很容易出現字體不支援的狀況
 
-![no-powerline](http://i.imgur.com/t9QBzrv.png)
+![no-powerline](http://i.imgur.com/lfWR5f4.png)
 
 很多人的做法都是去做字體檔的[補丁](https://github.com/powerline/fonts)
 
@@ -122,7 +122,7 @@ font-family: "Noto Color Emoji", sans-serif;
 
 Linux 裡面常見的 terminal 預設都不支援有顏色的 emoji
 
-![no-color](http://i.imgur.com/FLoFFQQ.png)
+![no-color](http://i.imgur.com/SZIGEOQ.png)
 
 後來我在 SO 看到[這篇](http://askubuntu.com/questions/781851/use-emoji-inside-terminal)的這句話
 
@@ -134,7 +134,7 @@ Linux 裡面常見的 terminal 預設都不支援有顏色的 emoji
 
 就可以有漂亮的彩色 emoji 了！
 
-![color-emoji](http://i.imgur.com/iLAtfpH.png)
+![color-emoji](http://i.imgur.com/umWKd81.png)
 
 ## References
 
