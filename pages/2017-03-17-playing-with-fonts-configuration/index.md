@@ -2,6 +2,7 @@
 title: 字體調教心得
 date: 2017-03-17
 path: /2017-03-17-playing-with-fonts-configuration/
+featuredImage: http://i.imgur.com/EHWNWpl.png
 ---
 
 一陣子沒發文了 QQ
