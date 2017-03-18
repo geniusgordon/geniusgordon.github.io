@@ -2,7 +2,7 @@
 title: 字體調教心得
 date: 2017-03-17
 path: /2017-03-17-playing-with-fonts-configuration/
-featuredImage: http://i.imgur.com/EHWNWpl.png
+featuredImage: https://i.imgur.com/EHWNWpl.png
 ---
 
 一陣子沒發文了 QQ
@@ -19,13 +19,13 @@ featuredImage: http://i.imgur.com/EHWNWpl.png
 
 常用在各種 shell 的 prompt 還有 vim, tmux 的 statusline
 
-![powerline](http://i.imgur.com/NwdBdcK.png)
+![powerline](https://i.imgur.com/NwdBdcK.png)
 
 其中那些三角型都是 unicode 字元    
 
 很容易出現字體不支援的狀況
 
-![no-powerline](http://i.imgur.com/lfWR5f4.png)
+![no-powerline](https://i.imgur.com/lfWR5f4.png)
 
 很多人的做法都是去做字體檔的[補丁](https://github.com/powerline/fonts)
 
@@ -123,9 +123,9 @@ font-family: "Noto Color Emoji", sans-serif;
 
 Linux 裡面常見的 terminal 預設都不支援有顏色的 emoji
 
-![no-color](http://i.imgur.com/SZIGEOQ.png)
+![no-color](https://i.imgur.com/SZIGEOQ.png)
 
-後來我在 SO 看到[這篇](http://askubuntu.com/questions/781851/use-emoji-inside-terminal)的這句話
+後來我在 SO 看到[這篇](https://askubuntu.com/questions/781851/use-emoji-inside-terminal)的這句話
 
 > Color Emojis are not currently supported. Apparently there is a patched WIP version of **libcairo** that allows rendering colored emojis but it isn't stable yet.
 
@@ -135,10 +135,10 @@ Linux 裡面常見的 terminal 預設都不支援有顏色的 emoji
 
 就可以有漂亮的彩色 emoji 了！
 
-![color-emoji](http://i.imgur.com/umWKd81.png)
+![color-emoji](https://i.imgur.com/umWKd81.png)
 
 ## References
 
 - Github: [Powerline](https://github.com/powerline/powerline)
 - Arch Wiki: [Font Configuration](https://wiki.archlinux.org/index.php/font_configuration)
-- StackOverflow: [Use Emoji Inside Terminal](http://askubuntu.com/questions/781851/use-emoji-inside-terminal)
+- StackOverflow: [Use Emoji Inside Terminal](https://askubuntu.com/questions/781851/use-emoji-inside-terminal)
