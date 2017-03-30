@@ -89,7 +89,7 @@ bar {
 
 他就會把他顯示在 status bar 上
 
-![i3bar example](http://i.imgur.com/pfBri9v.png)
+![i3bar example](https://i.imgur.com/pfBri9v.png)
 
 所以可以自己寫一個 script，寫任何你想要顯示在 status bar 上面的東西
 
