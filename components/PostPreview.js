@@ -39,6 +39,11 @@ const Content = styled.p`
   margin: 0;
 `;
 
+const FakeLink = styled.span`
+  color: #007acc;
+  text-decoration: underline;
+`;
+
 const ReadMore = styled.p`
   font-size: ${scale(-1).fontSize};
   line-height: ${scale(-1).lineHeight};
@@ -46,6 +51,49 @@ const ReadMore = styled.p`
   margin-top: ${rhythm(1)};
   margin-bottom: 0;
 `;
+
+// split html by <a>
+// and replace <a> with <span /> to avoid nested <a>
+const renderPreview = body => {
+  const elements = [];
+  let buffer = [];
+  body.split('\n').forEach((element, i) => {
+    if (/<a/.test(element)) {
+      elements.push(
+        <div key={i} dangerouslySetInnerHTML={{ __html: buffer.join('\n') }} />,
+      );
+      const parts = element.split(/(<a.*?<\/a>)/);
+      const content = parts.map(part => {
+        if (/<a/.test(part)) {
+          const text = part.match(/>(.*)</)[1];
+          const href = part.match(/href="(.*?)"/)
+            ? element.match(/href="(.*?)"/)[1]
+            : '';
+          return (
+            <FakeLink
+              key={`link-${i}`}
+              onClick={e => {
+                window.location.href = href;
+                e.preventDefault();
+              }}
+            >
+              {text}
+            </FakeLink>
+          );
+        }
+        return part.replace(/<\/?p>/, '');
+      });
+      elements.push(<p>{content}</p>);
+      buffer = [];
+    } else {
+      buffer.push(element);
+    }
+  });
+  elements.push(
+    <div key="end" dangerouslySetInnerHTML={{ __html: buffer.join('\n') }} />,
+  );
+  return elements;
+};
 
 const PostPreview = ({ page }) => {
   const content = preview(page.data.body);
@@ -56,7 +104,7 @@ const PostPreview = ({ page }) => {
       <Title>{get(page, 'data.title', page.path)}</Title>
       {date ? <Date>{format(date, 'MMM DD, YYYY')}</Date> : null}
       {featuredImage ? <FeaturedImage src={featuredImage} /> : null}
-      <Content dangerouslySetInnerHTML={{ __html: content }} />
+      {renderPreview(content)}
       <ReadMore>Read more...</ReadMore>
     </Card>
   );
