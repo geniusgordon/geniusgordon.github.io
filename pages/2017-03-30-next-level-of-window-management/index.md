@@ -15,7 +15,7 @@ featuredImage: https://i.imgur.com/DtjbjrI.png
 
 ## Window Manager
 
-i3 是一種 window manager，先來紹介一下 window manager 是什麼
+i3 是一種 window manager，先來介紹一下 window manager 是什麼
 
 Window manager 簡稱 wm，就跟字面上的意思一樣是負責管理視窗的東西，主要可以分成兩種
 
